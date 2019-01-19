@@ -1,0 +1,13 @@
+[
+  {
+    "url": "/modules",
+    "method": "get",
+    "description": "Get modules list",
+    "file": "ModulesList"
+  }, {
+    "url": "/modules",
+    "method": "get",
+    "description": "Start a module",
+    "file": "ModuleStart"
+  }
+]
