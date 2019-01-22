@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <Menu />
+    <JobsIcon/>
+    <RestartIcon/>
     <div class="content-wrapper">
       <div class="content">
         <router-view />
@@ -10,16 +12,19 @@
 </template>
 
 <script>
-import Menu from './components/Menu.vue'
+import Menu from './components/Menu.vue';
+import JobsIcon from './components/JobsIcon.vue';
+import RestartIcon from './components/RestartIcon.vue';
 
 export default {
   name: 'app',
   components: {
     Menu,
+    JobsIcon,
+    RestartIcon,
   }
 }
 </script>
-
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -68,5 +73,18 @@ export default {
 
 .semi-transparent-background {
   background: rgba(0.5, 0.5, 0.5, 0.5);
+}
+
+.button {
+  background: #0098CE;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.button:hover {
+  background: #0076AC;
 }
 </style>

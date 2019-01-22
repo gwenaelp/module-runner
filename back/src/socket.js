@@ -1,4 +1,6 @@
 const modulesManager = require('./modules');
+const jobsManager = require('./jobs');
+const systemManager = require('./system');
 
 const socketManager = {
   openedSockets: {},
@@ -9,7 +11,17 @@ const socketManager = {
     io.on('connection', (socket) => {
       this.openedSockets[socket.id] = socket;
       modulesManager.broadcastModuleList();
-
+      jobsManager.broadcastJobsList();
+      
+      socket.on('system', (msg) => {
+        if(msg.action) {
+          if(systemManager.actions[msg.action]) {
+            systemManager.actions[msg.action](msg);
+          } else {
+            console.error('no actions found : ', msg.action);
+          }
+        }
+      });
       socket.on('action', (msg) => {
         console.log('I received an action request saying ', msg);
         if(msg.action) {
@@ -29,5 +41,6 @@ const socketManager = {
 };
 
 modulesManager.socketManager = socketManager;
+jobsManager.socketManager = socketManager;
 
 module.exports = socketManager;

@@ -4,6 +4,9 @@
   "main": "src/index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "nodemon --watch .shutdownCount --watch src"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",

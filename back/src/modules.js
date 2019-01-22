@@ -4,6 +4,7 @@ const modulesConfig = require('./modulesConfig');
 const { spawn } = require('child_process');
 const dotenv = require('dotenv');
 const dotenvStringify = require('dotenv-stringify');
+const jobsManager = require('./jobs');
 
 process.env.FORCE_COLOR = true;
 
@@ -57,7 +58,6 @@ const modulesManager = {
     if (fs.existsSync(envPath)) {
       env = dotenv.parse(fs.readFileSync(envPath));
     }
-    console.log('config?', modulesConfig.config[name]);
     this.modules[name] = {
       manifest: JSON.parse(fs.readFileSync(`${process.env.MODULES_ROOT_PATH}/node_modules/${name}/package.json`)),
       config: modulesConfig.config[name] || {},
@@ -75,7 +75,7 @@ const modulesManager = {
   },
 
   startModule(moduleName) {
-    const mainPath = `${process.env.MODULES_ROOT_PATH}/node_modules/${moduleName}/${this.modules[moduleName].manifest.main}`;
+    const mainPath = `${process.env.MODULES_ROOT_PATH}/node_modules/${moduleName}/${this.modules[moduleName].config.startFile}`;
     const child = spawn('node', [mainPath], {
       env: this.modules[moduleName].env,
       cwd: process.env.MODULES_ROOT_PATH
@@ -107,22 +107,27 @@ const modulesManager = {
     this.broadcastModuleList();
   },
   installModule(moduleName) {
+    const jobId = jobsManager.addJobToList(`install ${moduleName}`);
     const child = spawn('yarn', ['add', moduleName], {
       env: process.env,
       cwd: process.env.MODULES_ROOT_PATH
     });
     child.stdout.on('close', (code, signal) => {
+      jobsManager.finishJob(jobId);
       this.addModuleToList(moduleName);
       console.log(`close ${code} ${signal}`);
     });
   },
   removeModule(moduleName) {
+    const jobId = jobsManager.addJobToList(`remove ${moduleName}`);
+
     const child = spawn('yarn', ['remove', moduleName], {
       env: process.env,
       cwd: process.env.MODULES_ROOT_PATH
     });
 
     child.stdout.on('close', (code, signal) => {
+      jobsManager.finishJob(jobId);
       this.removeModuleFromList(moduleName);
       console.log(`close ${code} ${signal}`);
     });

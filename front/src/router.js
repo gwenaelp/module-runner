@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import ModulesList from './components/pages/ModulesList';
+import JobsList from './components/pages/JobsList';
 import ModuleInfo from './components/pages/ModuleInfo';
 import InstallModule from './components/pages/InstallModule';
 
@@ -20,6 +21,10 @@ export default new Router({
       path: '/module-info/:moduleName',
       name: 'ModuleInfo',
       component: ModuleInfo,
-    }
+    }, {
+      path: '/jobs',
+      name: 'JobsList',
+      component: JobsList,
+    },
   ],
 });

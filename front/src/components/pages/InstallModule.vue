@@ -5,7 +5,7 @@
 		</h1>
 		<input type="text" name="moduleAlias" v-model="moduleAlias" />
 		<div>
-			<a @click="installModule">
+			<a class="button" @click="installModule">
 				Install
 			</a>
 		</div>

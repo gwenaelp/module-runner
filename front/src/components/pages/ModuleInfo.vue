@@ -8,15 +8,18 @@
         Environment variables
       </h2>
       <codemirror v-model="env" :options="{}" />
-      {{currentModule.env}}
-      <a @click="saveEnv()">Save env</a>
+      <a class="button" @click="saveEnv()">Save env</a>
+      <br/>
+      <h2>
+        Configuration
+      </h2>
+      <label for="moduleinfo-start-file">Start file</label>
+      <input id="moduleinfo-start-file" type="text" v-model="currentModule.config.startFile" name="startFile">
       <br/>
       <label for="moduleinfo-autostart">Autostart</label>
-      <input id="moduleinfo-autostart" type="checkbox" v-model="currentModule.config.autostart" name="">
+      <input id="moduleinfo-autostart" type="checkbox" v-model="currentModule.config.autostart" name="autostart">
       <br/>
-      {{currentModule.config}}
-      <br/>
-      <a @click="saveConfig()">Save config</a>
+      <a class="button" @click="saveConfig()">Save config</a>
     </div>
   </div>
 </template>

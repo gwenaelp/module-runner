@@ -13,13 +13,12 @@
         </a>
       </li>
     </ul>
-    <h2>App settings</h2>
+    <h2>General</h2>
     <ul>
       <li>
-        <a>Notifications</a>
-      </li>
-      <li>
-        <a class="active">Appearance</a>
+        <a href="#/jobs">
+          Jobs list
+        </a>
       </li>
     </ul>
     <hr/>
@@ -69,6 +68,7 @@ a {
   border-radius: 4px;
   display: inline-block;
   cursor: pointer;
+  color: white;
 }
 
 a:hover, a.active {

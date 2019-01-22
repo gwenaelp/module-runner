@@ -1,32 +1,21 @@
 <template>
 	<div>
-		<div v-if="moduleList">
-			<div v-for="m in moduleList" class="item" v-if="moduleList">
+		<div v-if="jobsList">
+			<div v-for="j in jobsList" class="item" v-if="jobsList">
 				<div class="flex">
 					<div class="round semi-transparent-background">
-						<i class="fas fa-cogs" />
+						<i class="fas fa-check" v-if="j.status === 'done'"/>
+						<i class="fas fa-cogs" v-if="j.status === 'running'"/>
 					</div>
 					<div class="list-text">
 						<div class="title">
-							{{m.manifest.name}}
+							{{j.name}}
 						</div>
 						<div class="subtitle">
-							{{m.status}}
+							{{j.status}}
 						</div>
 					</div>
 					<div class="actions">
-						<div class="round light-background" v-if="m.status !== 'running'" @click="$socket.emit('action', { action: 'startModule', name: m.manifest.name })">
-							<i class="fas fa-play" />
-						</div>
-						<div class="round light-background" v-if="m.status === 'running'" @click="$socket.emit('action', { action: 'stopModule', name:m.manifest.name })">
-							<i class="fas fa-stop" />
-						</div>
-						<a class="round light-background" :href="`#/module-info/${m.manifest.name}`">
-							<i class="fas fa-info" />
-						</a>
-						<div class="round light-background" @click="$socket.emit('action', { action: 'removeModule', name:m.manifest.name })">
-							<i class="fas fa-trash" />
-						</div>
 					</div>
 				</div>
 			</div>
@@ -39,7 +28,7 @@ import { mapState } from 'vuex';
 export default {
   computed: {
     ...mapState({
-      moduleList: state => state.moduleList,
+      jobsList: state => state.jobsList,
     }),
   },
 };

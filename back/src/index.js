@@ -13,8 +13,6 @@ const mkdirp = require('mkdirp');
 
 mkdirp.sync(`${process.env.MODULES_ROOT_PATH}/env`);
 
-
-
 require('./modulesConfig').init();
 require('./modules').init();
 
